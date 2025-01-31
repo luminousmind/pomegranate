@@ -12,22 +12,15 @@ const signup = async (req, res) => {
   }
 
   try {
-    const usernameExists = await prisma.user.findUnique({
-      where: { username },
-    });
+    const [usernameExists, emailExists] = await Promise.all([
+      prisma.user.findUnique({ where: { username } }),
+      prisma.user.findUnique({ where: { email } }),
+    ]);
 
-    if (usernameExists) {
+    if (usernameExists || emailExists) {
       return res
         .status(409)
-        .json({ success: false, error: "Username is already used" });
-    }
-
-    const emailExists = await prisma.user.findUnique({ where: { email } });
-
-    if (emailExists) {
-      return res
-        .status(409)
-        .json({ success: false, error: "Email is already used" });
+        .json({ success: false, error: "Username or email is already used" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
