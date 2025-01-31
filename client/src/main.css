@@ -29,6 +29,11 @@ body {
   background: #111111;
 }
 
+main {
+  width: 100vw;
+  height: calc(100vh - 56px);
+}
+
 header {
   background: var(--nav-background-color);
 }
