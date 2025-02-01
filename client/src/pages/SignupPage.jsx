@@ -1,12 +1,17 @@
 import { useState } from "react";
+import useAuthStore from "../services/authService";
 
 function SignupPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const { signup } = useAuthStore();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    await signup(username, email, password);
   };
 
   return (
@@ -30,12 +35,7 @@ function SignupPage() {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button
-          type="submit"
-          className="cursor-pointer px-3 py-1.5 rounded-xl bg-[#17613b] border-[#298255] border-1 hocus:brightness-125 duration-300"
-        >
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <header>
       <header className="flex-center bg-[#181818] h-14">
-        <nav className="flex-between w-full max-w-6xl">
+        <nav className="flex-between w-full max-w-6xl m-x-4">
           <Link to="/" tabIndex="-1">
             <h3 className="font-bold text-lg hocus:text-white" tabIndex="0">
               superlogo
