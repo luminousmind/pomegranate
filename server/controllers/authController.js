@@ -97,7 +97,23 @@ const login = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ success: false, error: "Failed to logout" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  });
+};
+
 module.exports = {
   signup,
   login,
+  logout,
 };

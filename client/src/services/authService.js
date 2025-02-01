@@ -41,6 +41,22 @@ const useAuthStore = create((set) => ({
       set({ error: "Wrong username or password." });
     }
   },
+
+  logout: async () => {
+    try {
+      await api.post("/logout");
+      set({
+        isAuthenticated: false,
+        username: "",
+        email: "",
+        password: "",
+        error: "",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      set({ error: "Failed to logout user" });
+    }
+  },
 }));
 
 export default useAuthStore;
